@@ -1,4 +1,4 @@
-import FloatingButton from "@/components/floating-button";
+import FloatingButtonLink from "@/components/floating-button-link";
 import { Layout } from "@/components/layouts";
 import type { NextPage } from "next";
 import Link from "next/link";
@@ -62,7 +62,7 @@ const Home: NextPage = () => {
           </div>
         ))}
       </div>
-      <FloatingButton>
+      <FloatingButtonLink href="/upload">
         <svg
           className="h-6 w-6"
           xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@ const Home: NextPage = () => {
             d="M12 6v6m0 0v6m0-6h6m-6 0H6"
           />
         </svg>
-      </FloatingButton>
+      </FloatingButtonLink>
     </Layout>
   );
 };

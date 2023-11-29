@@ -12,9 +12,11 @@ export const Header = function ({ title, canGoBack }: HeaderProps) {
   return (
     <header className=" fixed top-0 w-full  max-w-lg  border-b bg-white font-medium">
       <div className="title flex justify-center p-2 text-lg text-gray-600">
-        {title ? <span>{title}</span> : null}
+        {title ? (
+          <span className="w-full only:text-center">{title}</span>
+        ) : null}
         {canGoBack ? (
-          <span className="flex w-full cursor-pointer justify-end opacity-80 hover:opacity-100">
+          <span className="flex w-[20%] cursor-pointer justify-end opacity-80 only:w-full hover:opacity-100">
             <svg
               onClick={onClickRouterBack}
               className=" h-6 w-6 "

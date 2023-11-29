@@ -1,3 +1,5 @@
+import ButtonDefault from "@/components/button";
+import Input from "@/components/input";
 import { Layout } from "@/components/layouts";
 import { useState } from "react";
 
@@ -10,8 +12,8 @@ export default function Enter() {
   const onEmailClick = () => setMethod("email");
   const onPhoneClick = () => setMethod("phone");
   return (
-    <Layout title="로그인" hasTabBar>
-      <div className="mx-auto w-1/2 min-w-[250px] max-w-lg space-y-5  py-10 text-center   ">
+    <Layout title="로그인" hasTabBar canGoBack>
+      <div className="mx-auto  min-w-[250px] space-y-5 px-3  py-10 text-center   ">
         <h3 className="text-2xl font-semibold">Enter to Carrot</h3>
         <div className=" relative flex flex-col items-center space-y-5 text-center">
           <div className="w-full">
@@ -41,38 +43,26 @@ export default function Enter() {
               </button>
             </div>
           </div>
-          <form className="w-full space-y-5 px-5">
-            <label className="mb-8 block  text-xl font-semibold">
-              {method === "email" ? "Email address" : null}
-              {method === "phone" ? "Phone number" : null}
-            </label>
-            <div>
-              {method === "email" ? (
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="w-full appearance-none rounded-sm  border-gray-200 p-2 placeholder-gray-400  shadow-sm focus:border-orange-400 focus:ring-orange-400"
-                  required
-                />
-              ) : null}
-              {method === "phone" ? (
-                <div className="flex w-full ">
-                  <span className="rounded-l-sm border border-r-0   bg-gray-100  p-2 text-gray-500 ">
-                    +82
-                  </span>
-                  <input
-                    type="tel"
-                    className="w-full rounded-sm rounded-l-none border-gray-200 shadow-sm"
-                    required
-                  />
-                </div>
-              ) : null}
+          <form className="w-full px-5">
+            <div className="mt-2">
+              <Input
+                kind={method === "email" ? "email" : "phone" ? "phone" : "text"}
+                placeholder={
+                  method === "email" ? "Email" : "phone" ? "" : undefined
+                }
+                required
+              />
             </div>
 
-            <button className="w-full rounded-sm bg-orange-400 p-2 px-4 text-white">
-              {method === "email" ? "Get login link" : null}
-              {method === "phone" ? "Get one-time password" : null}
-            </button>
+            <ButtonDefault
+              text={
+                method === "email"
+                  ? "Get login link"
+                  : "phone"
+                    ? "Get one-time password"
+                    : null
+              }
+            />
           </form>
           <div className="other-login w-full px-5">
             <div className="relative my-3">

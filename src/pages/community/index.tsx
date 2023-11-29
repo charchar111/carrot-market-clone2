@@ -1,3 +1,4 @@
+import FloatingButtonLink from "@/components/floating-button-link";
 import { Layout } from "@/components/layouts";
 import Link from "next/link";
 
@@ -6,7 +7,7 @@ export default function Community() {
     <Layout title="동네 생활" hasTabBar>
       <div id="community-index" className="space-y-14 px-3 pt-5">
         {[...Array(10)].map((_, i) => (
-          <div>
+          <div key={i}>
             <Link href={`community/${i}`}>
               <div className="space-y-3">
                 <p className=" w-max rounded-3xl bg-gray-100 p-1 px-2">
@@ -64,25 +65,22 @@ export default function Community() {
             </Link>
           </div>
         ))}
-
-        <Link href="community/write">
-          <button className="fixed bottom-12 right-12 rounded-full bg-orange-400 p-4 text-white opacity-80 transition-all hover:bg-orange-500 hover:opacity-100">
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-              ></path>
-            </svg>
-          </button>
-        </Link>
+        <FloatingButtonLink href="community/write">
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+            ></path>
+          </svg>
+        </FloatingButtonLink>
       </div>
     </Layout>
   );

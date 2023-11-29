@@ -1,3 +1,4 @@
+import ButtonDefault from "@/components/button";
 import { Layout } from "@/components/layouts";
 import Link from "next/link";
 
@@ -30,9 +31,8 @@ export default function ItemDetail() {
               the first motherfucker to get shot. You understand?
             </p>
             <div className="mb-5 flex space-x-3">
-              <button className="w-full flex-1 rounded-lg bg-orange-400 p-3 py-1 text-white transition-all hover:bg-orange-500">
-                Talk to seller
-              </button>
+              <ButtonDefault text="Talk to seller" />
+
               <button className="p-2 shadow-sm transition-all hover:bg-gray-100">
                 <svg
                   className="h-6 w-6 "
