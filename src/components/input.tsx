@@ -2,6 +2,7 @@ interface InputProps {
   kind?: "price" | "phone" | "email" | "chat" | "text";
   label?: string;
   name?: string;
+  register?: any;
   [key: string]: any;
 }
 
@@ -9,6 +10,7 @@ export default function Input({
   kind = "text",
   label,
   name,
+  register,
   ...rest
 }: InputProps) {
   let inputPrice;
@@ -16,15 +18,15 @@ export default function Input({
   let inputEmail;
   let inputChat;
   let inputText;
-
-  console.log(kind);
   switch (kind) {
     case "chat":
       inputChat = (
         <>
           <input
+            {...register}
             type="text"
             className=" w-full  rounded-md border-gray-400 pr-10 shadow-lg"
+            {...rest}
           />
           <div className="absolute right-1 rounded-full bg-orange-400  px-2 pb-1 text-white">
             <span>&rarr;</span>
@@ -35,21 +37,22 @@ export default function Input({
     case "text":
       inputText = (
         <input
+          {...register}
           id={name ? name : undefined}
           type="text"
-          className="rounded-md border-gray-400"
-          placeholder="Write a title"
+          className="mb-5 w-full appearance-none rounded-sm border-gray-200  p-2 placeholder-gray-400 shadow-sm  placeholder:text-gray-300 focus:border-orange-400 focus:ring-orange-400"
+          {...rest}
         />
       );
       break;
     case "email":
       inputEmail = (
         <input
+          {...register}
           id={name ? name : undefined}
           type="email"
-          placeholder="abcd123@naver.com"
           className="mb-5 w-full appearance-none rounded-sm border-gray-200  p-2 placeholder-gray-400 shadow-sm  placeholder:text-gray-300 focus:border-orange-400 focus:ring-orange-400"
-          required
+          {...rest}
         />
       );
       break;
@@ -60,11 +63,11 @@ export default function Input({
             +82
           </span>
           <input
+            {...register}
             id={name ? name : undefined}
             type="tel"
             className="w-full rounded-sm rounded-l-none border-gray-200 shadow-sm placeholder:text-gray-300 focus:border-orange-400 focus:ring-orange-400"
-            required
-            placeholder="01012345678"
+            {...rest}
           />
         </div>
       );
@@ -79,6 +82,7 @@ export default function Input({
           </span>
 
           <input
+            {...register}
             type="text"
             className="w-full rounded-md border-gray-400 pl-8 focus:border-orange-400 focus:ring-orange-400"
             id={name}

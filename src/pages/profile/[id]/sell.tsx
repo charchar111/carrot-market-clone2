@@ -11,7 +11,7 @@ export default function profileSell() {
             className=" row flex justify-between border-b-2 p-4 py-8"
             key={i}
           >
-            <Link href={`/items/${i}`}>
+            <Link href={`/products/${i}`}>
               <div className="row__column1 flex cursor-pointer items-center space-x-2">
                 <div className="img-wrapper aspect-square w-20 rounded-lg bg-gray-400" />
                 <div className="flex flex-col">
@@ -61,7 +61,7 @@ export default function profileSell() {
           </div>
         ))}
 
-        <FloatingButtonLink href="/upload" bottom="10">
+        <FloatingButtonLink href="/products/upload" bottom="10">
           <svg
             className="h-6 w-6"
             xmlns="http://www.w3.org/2000/svg"

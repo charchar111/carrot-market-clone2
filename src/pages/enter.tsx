@@ -2,15 +2,45 @@ import ButtonDefault from "@/components/button";
 import Input from "@/components/input";
 import { Layout } from "@/components/layouts";
 import { useState } from "react";
-
-function addClass(...classnames: string[]) {
-  return classnames.join(" ");
-}
+import { makeClassName } from "@/libs/client/utils";
+import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
+import useMutation from "@/libs/client/useMutation";
+import TokenForm from "@/components/tokenForm";
 
 export default function Enter() {
+  const [mutation, { data, error, isLoading }] = useMutation<responseType>(
+    "/api/users/confirm-address",
+  );
+
+  // console.log("mutation", data, error, isLoading);
+
+  const {
+    register,
+    handleSubmit,
+
+    resetField,
+    formState: { errors },
+  } = useForm<EnterLoginForm1>();
   const [method, setMethod] = useState<"email" | "phone">("email");
-  const onEmailClick = () => setMethod("email");
-  const onPhoneClick = () => setMethod("phone");
+  const onEmailClick = () => {
+    resetField("phone");
+    setMethod("email");
+  };
+  const onPhoneClick = () => {
+    resetField("email");
+    setMethod("phone");
+  };
+
+  // 로그인용 폼, 함수
+  const onValid: SubmitHandler<EnterLoginForm1> = function (formData) {
+    // console.log(formData);
+
+    mutation(formData);
+  };
+  const onInvalid = function (error: FieldErrors) {
+    console.log(error);
+  };
+
   return (
     <Layout title="로그인" hasTabBar canGoBack>
       <div className="mx-auto  min-w-[250px] space-y-5 px-3  py-10 text-center   ">
@@ -18,9 +48,9 @@ export default function Enter() {
         <div className=" relative flex flex-col items-center space-y-5 text-center">
           <div className="w-full">
             <h5 className="text-gray-500">Enter using</h5>
-            <div className="mt-3 flex justify-center border-b-2 border-b-gray-300">
+            <div className="tab-method mt-3 flex justify-center border-b-2 border-b-gray-300">
               <button
-                className={addClass(
+                className={makeClassName(
                   "w-1/2 py-4",
                   method === "email"
                     ? "font-semibold text-orange-500 outline outline-2 outline-orange-300"
@@ -31,7 +61,7 @@ export default function Enter() {
                 Email
               </button>
               <button
-                className={addClass(
+                className={makeClassName(
                   "w-1/2 py-4",
                   method === "phone"
                     ? "font-semibold text-orange-500 outline outline-2 outline-orange-300"
@@ -43,27 +73,75 @@ export default function Enter() {
               </button>
             </div>
           </div>
-          <form className="w-full px-5">
-            <div className="mt-2">
-              <Input
-                kind={method === "email" ? "email" : "phone" ? "phone" : "text"}
-                placeholder={
-                  method === "email" ? "Email" : "phone" ? "" : undefined
-                }
-                required
-              />
-            </div>
+          {data ? (
+            <TokenForm />
+          ) : (
+            <form
+              className="w-full px-5"
+              onSubmit={handleSubmit(onValid, onInvalid)}
+            >
+              <div className="form-address mt-2">
+                <Input
+                  register={register(
+                    `${method === "email" ? "email" : "phone"}`,
+                    method === "email"
+                      ? { required: "required" }
+                      : {
+                          required: "required",
+                          validate: { isNan: (value) => !isNaN(Number(value)) },
+                        },
+                  )}
+                  kind={
+                    method === "email" ? "email" : "phone" ? "phone" : "text"
+                  }
+                  placeholder={
+                    method === "email"
+                      ? "abc@naver.com"
+                      : "phone"
+                        ? "01012345678"
+                        : undefined
+                  }
+                />
+              </div>
 
-            <ButtonDefault
-              text={
-                method === "email"
-                  ? "Get login link"
-                  : "phone"
-                    ? "Get one-time password"
-                    : null
-              }
-            />
-          </form>
+              <div className="error-wrapper mb-2 font-semibold  text-red-600">
+                {!error ? null : (
+                  <div className="error-wrapper__api">
+                    <p>{error.message}</p>
+                  </div>
+                )}
+                {method !== "email" ? null : (
+                  <div className="error-wrapper__email">
+                    <p>{errors.email?.message}</p>
+                  </div>
+                )}
+                {method !== "phone" ? null : (
+                  <div className="error-wrapper__phone ">
+                    <p>
+                      {errors.phone?.type == "isNan"
+                        ? "폰 번호는 숫자로만 이뤄져야 합니다."
+                        : errors.phone?.message
+                          ? errors.phone?.message
+                          : null}
+                    </p>
+                  </div>
+                )}
+                <p></p>
+              </div>
+
+              <ButtonDefault
+                text={
+                  isLoading
+                    ? "Loading"
+                    : method === "email"
+                      ? "Get login link"
+                      : "phone"
+                        ? "Get one-time password"
+                        : null
+                }
+              />
+            </form>
+          )}
           <div className="other-login w-full px-5">
             <div className="relative my-3">
               <div className="absolute w-full border "></div>
