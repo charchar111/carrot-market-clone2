@@ -6,6 +6,7 @@ import useMutation from "@/libs/client/useMutation";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useSWRConfig } from "swr";
+import { responseType } from "@/libs/types";
 
 interface EnterLoginTokenForm {
   token: string;

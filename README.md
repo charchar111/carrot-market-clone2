@@ -2,7 +2,8 @@
 
 ## 컨셉
 
-이 프로젝트는 next js(page-router)를 이용한 풀스택 앱 제작 연습이 목적입니다. 프로젝트의 진행은 노마드 코더 \[풀스택\]캐럿마켓 클론코딩 2022버전에 기반하였습니다.
+이 프로젝트의 목적은 next js(page-router)를 이용한 풀스택 앱 제작 연습입니다. 프로젝트의 컨셉 설정과 기술스택 및 코드는
+노마드 코더 \[풀스택\]캐럿마켓 클론코딩 2022버전에 기반하였습니다.
 
 ### 기술 스택
 
@@ -13,32 +14,42 @@
 
 - 데이터베이스
 
-  - planet scale, prisma
+  - prisma
+  - planet scale,
     - SQL, 서버리스
 
 - 지원 툴
 
   - typescript
 
+- 데이터 쿼리
+
+  - SWR
+
+- 인증, 쿠키
+
+  - iron-session
+
+- form
+  -react-hook-form
+
 - 기타
-  - React 18버전 hook
-    - server-side-streaming
-    - server-components
+  - server-side-streaming
+  - server-components
 
-## 작업
+## 기능
 
-[tailwind(ui 디자인)](#tailwind)
+### 목차
 
-## 기능 구현
+- UI 디자인(tailwind)
+- authentication
+- authorize
+- product 페이지
+- community 페이지
+- profile 페이지
+- live 페이지
 
-### tailwind ✅
-
-- 페이지
-- 재사용 컴포넌트
-
-### db ✅
-
-- prisma, planetscale 사용
+## 기능 세부사항
 
 ### authentication
 
@@ -77,15 +88,15 @@
   - 모든 api는 요청의 기본 유효성 검사를 위해 withAPIhander 함수 사용
     - lib/server/withAPIhander.ts
 
-### product
+### product✅
 
 #### 모델
 
-- product✅
+- product
   : 상품 데이터
   : 유저와 가까운 상품을 우선 보여줄 예정이므로, 위치 정보 필드 필요
 
-- record✅
+- record
   : product 레코드와 user 레코드 간의 특수한 관계를 위한 관계용 모델
   : favorite, sale, buy 로 구분(enum)
   - \* 관계용 모델: 레코드에 id, createdAt, updatedAt을 제외한 스칼라 필드가 없이 오로지 관계형 필드만 존재하는 모델
@@ -94,21 +105,14 @@
 
 - "/products/upload
   : 상품을 업로드함
-  : (임시) react-hook-form, useMutation, api 요청, 중복 요청 방지, 리다이렉트
-  : (임시) 백엔드, 유효성 검사, 모델 쿼리
 
 - "/"
   : 모든 상품목록을 보여줌
-  : product
 
 - "/products/\[id]"
-  : 상품의 상세 정보
-  : (임시)
-
-- 좋아요 기능
-  : "/products/\[id]"
-  : 상품에 좋아요 누르기
-  : swr의 mutation 이용
+  : 상품의 구체적인 정보
+  : 좋아요 기능
+  : 유사한 이름의 상품 검색
 
 ### 동네생활
 
@@ -124,10 +128,18 @@
 - wondering
   : 글의 토글 중 하나,
 
+#### 페이지
+
+- community/write
+  : 글 올림
+  : 포스트 모델의 레코드 생성 api 요청
+  : 위치 정보를 요청해서 허락 여부에 따라 전송
+
+  - community
+    : 전체 포스트 리스트를 나열
+
+  - community/\[id]
+    : 포스트의 상세 정보
+    : 나도 궁금해요 토글과 답변 달기 기능
+
 ### 프로파일
-
-#### 모델
-
-- review
-  : 거래자에 대한 리뷰 문자열
-  : 리뷰 등록자, 리뷰 피등록자

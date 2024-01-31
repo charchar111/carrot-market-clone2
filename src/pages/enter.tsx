@@ -6,6 +6,7 @@ import { makeClassName } from "@/libs/client/utils";
 import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
 import useMutation from "@/libs/client/useMutation";
 import TokenForm from "@/components/tokenForm";
+import { EnterLoginForm1, responseType } from "@/libs/types";
 
 export default function Enter() {
   const [mutation, { data, error, isLoading }] = useMutation<responseType>(

@@ -45,9 +45,9 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   price       Int
-  image       String
+  image       String?
   name        String
-  description String   @db.MediumText
+  description String?  @db.MediumText
   latitude    Float?
   longitude   Float?
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)

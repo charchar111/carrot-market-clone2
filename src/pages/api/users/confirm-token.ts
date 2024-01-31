@@ -33,5 +33,5 @@ async function handler(
 }
 
 export default withApiSession(
-  withAPIhandler({ handler, method: "POST", isPrivated: false }),
+  withAPIhandler({ handler, method: ["POST"], isPrivated: false }),
 );

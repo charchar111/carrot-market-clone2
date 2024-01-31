@@ -11,6 +11,7 @@ export default function Textarea({
   label,
   name,
   height,
+  register,
   ...rest
 }: TextareaProps) {
   return (
@@ -21,9 +22,10 @@ export default function Textarea({
         className={makeClassName(
           "mb-2",
           `h-${height ? [height] : 64}`,
-          "w-full resize-none rounded-md border-gray-400",
+          "w-full resize-none rounded-sm border-gray-200 shadow-sm focus:border-transparent focus:ring-2 focus:ring-orange-400",
         )}
         id={name ? name : ""}
+        {...register}
         {...rest}
       />
     </>

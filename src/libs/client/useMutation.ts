@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { IuseMutation } from "../types";
 
 export default function useMutation<T>(
   url: string,

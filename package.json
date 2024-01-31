@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "connect": "pscale connect carrot-market-clone",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

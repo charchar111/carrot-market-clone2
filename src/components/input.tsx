@@ -1,3 +1,5 @@
+import { makeClassName } from "@/libs/client/utils";
+
 interface InputProps {
   kind?: "price" | "phone" | "email" | "chat" | "text";
   label?: string;
@@ -11,6 +13,7 @@ export default function Input({
   label,
   name,
   register,
+  errorStyle,
   ...rest
 }: InputProps) {
   let inputPrice;
@@ -25,10 +28,10 @@ export default function Input({
           <input
             {...register}
             type="text"
-            className=" w-full  rounded-md border-gray-400 pr-10 shadow-lg"
+            className=" w-full  rounded-md border-gray-400 pr-10 shadow-lg "
             {...rest}
           />
-          <div className="absolute right-1 rounded-full bg-orange-400  px-2 pb-1 text-white">
+          <div className="absolute right-1 rounded-full  bg-orange-400  px-2 pb-1 text-white">
             <span>&rarr;</span>
           </div>
         </>
@@ -40,7 +43,11 @@ export default function Input({
           {...register}
           id={name ? name : undefined}
           type="text"
-          className="mb-5 w-full appearance-none rounded-sm border-gray-200  p-2 placeholder-gray-400 shadow-sm  placeholder:text-gray-300 focus:border-orange-400 focus:ring-orange-400"
+          className={makeClassName(
+            "mb-5 w-full appearance-none rounded-sm",
+            errorStyle ? " border-red-500" : "border-gray-200",
+            "p-2 placeholder-gray-400 shadow-sm  placeholder:text-gray-300 focus:border-orange-400 focus:ring-orange-400",
+          )}
           {...rest}
         />
       );
@@ -74,23 +81,22 @@ export default function Input({
       break;
 
     case "price":
-      console.log("price");
       inputPrice = (
-        <div className="relative mb-5 flex items-center ">
-          <span className="pointer-events-none absolute left-2 text-gray-500">
-            $
-          </span>
+        <div className="relative mb-5 flex items-center text-gray-300">
+          <span className="pointer-events-none absolute left-2">$</span>
 
           <input
             {...register}
             type="text"
-            className="w-full rounded-md border-gray-400 pl-8 focus:border-orange-400 focus:ring-orange-400"
+            className={makeClassName(
+              "w-full rounded-sm",
+              errorStyle ? "border-red-500" : "border-gray-200",
+              "pl-8 shadow-sm placeholder:text-gray-300 focus:border-orange-400 focus:ring-orange-400",
+            )}
             id={name}
             {...rest}
           />
-          <span className=" pointer-events-none absolute right-5 text-gray-500">
-            USD
-          </span>
+          <span className=" pointer-events-none absolute right-5">USD</span>
         </div>
       );
       break;
