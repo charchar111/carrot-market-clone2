@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { ISendNodeMail } from "../types";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.naver.com",

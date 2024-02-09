@@ -2,6 +2,7 @@ import client from "@/libs/server/client";
 import { sendNodeMail } from "@/libs/server/email";
 import { sendSMSTwilio } from "@/libs/server/sms-twilio";
 import withAPIhandler from "@/libs/server/withAPIhandler";
+import { responseType } from "@/libs/types";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Twilio } from "twilio";
 
@@ -49,6 +50,8 @@ async function handler(
   });
 
   // twilio 토큰 인증 api, 비용 절감 위해 주석 처리
+
+  console.log(userAddress.phone);
   // if (phone)
   //   await sendSMSTwilio({
   //     body: `캐럿마켓 서비스 클론입니다.\n로그인 토큰은 ${payload} 입니다.`,

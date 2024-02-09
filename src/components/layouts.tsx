@@ -9,6 +9,7 @@ interface LayoutProps {
   canGoBack?: boolean;
   hasTabBar?: boolean;
   children: React.ReactNode;
+  user: { ok: boolean; profile: { id: number } };
 }
 
 export const Layout = function ({
@@ -16,6 +17,7 @@ export const Layout = function ({
   canGoBack,
   hasTabBar,
   children,
+  user,
 }: LayoutProps) {
   return (
     <div className="outter-layout min-h-screen bg-gray-100">
@@ -24,7 +26,7 @@ export const Layout = function ({
         <div className={makeClassName("pt-14", hasTabBar ? "pb-16" : "")}>
           {children}
         </div>
-        {hasTabBar ? <TabBar /> : null}
+        {hasTabBar ? <TabBar user={user} /> : null}
       </div>
     </div>
   );

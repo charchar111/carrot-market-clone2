@@ -43,7 +43,7 @@ export default function UploadDetail() {
 
   useEffect(() => {
     if (dataProduct && dataProduct?.ok) router.push("/");
-  }, [dataProduct]);
+  }, [dataProduct, router]);
 
   return (
     <Layout canGoBack>

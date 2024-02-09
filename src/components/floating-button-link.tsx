@@ -12,13 +12,30 @@ export default function FloatingButtonLink({
   href,
   bottom,
 }: floatingButtonProps) {
+  const bottomStyle = {
+    10: "bottom-10",
+  };
+
   return (
     <div
-      className={makeClassName(
-        "pointer-events-none fixed inset-x-0",
-        !bottom ? "bottom-20" : `bottom-${bottom}`,
-        "z-10 mx-auto flex max-w-lg justify-end",
-      )}
+      className={
+        bottom
+          ? makeClassName(
+              "pointer-events-none fixed inset-x-0",
+              bottomStyle[10],
+              "z-10 mx-auto flex max-w-lg justify-end",
+            )
+          : makeClassName(
+              "pointer-events-none fixed inset-x-0",
+              "bottom-20",
+              "z-10 mx-auto flex max-w-lg justify-end",
+            )
+      }
+      // className={  makeClassName(
+      //   "pointer-events-none fixed inset-x-0",
+      //   !bottom ? "bottom-20" : `bottom-${bottom}`,
+      //   "z-10 mx-auto flex max-w-lg justify-end",
+      // )}
       //  "pointer-events-none fixed inset-x-0 bottom-20 z-10 mx-auto flex max-w-lg justify-end"
     >
       <Link href={href}>

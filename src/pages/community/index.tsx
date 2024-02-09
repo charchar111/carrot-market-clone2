@@ -7,10 +7,15 @@ import useUser from "@/libs/client/useUser";
 import { responseType, responseTypePosts } from "@/libs/types";
 import Link from "next/link";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 export default function Community() {
+  const [state, setState] = useState("20");
+  useEffect(() => {
+    setTimeout(() => setState("40"), 2000);
+  }, []);
+
   const { userData, isLoading: userIsLoading, mutate: userMutate } = useUser();
   const {
     latitude,
@@ -26,7 +31,7 @@ export default function Community() {
           revalidate: false,
         });
       }, 2500);
-  }, [userData]);
+  }, [userData, userMutate]);
 
   const { data, isLoading, error } = useSWR<responseTypePosts>(
     geoIsloading
@@ -49,7 +54,7 @@ export default function Community() {
             {successData?.map((element, i) => (
               <ListItemCommunity key={i} element={element} />
             ))}
-            <FloatingButtonLink href="community/write">
+            <FloatingButtonLink href="community/write" bottom={state}>
               <svg
                 className="h-6 w-6"
                 fill="none"

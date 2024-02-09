@@ -42,7 +42,7 @@ const Write: NextPage = () => {
     if (dataPost && dataPost?.ok) {
       router.push("/community");
     }
-  }, [dataPost]);
+  }, [dataPost, router]);
 
   const onValid: SubmitHandler<IFormPost> = function (formData) {
     if (isLoadingPost) return;

@@ -41,13 +41,15 @@
 
 ### 목차
 
-- UI 디자인(tailwind)
-- authentication
-- authorize
-- product 페이지
-- community 페이지
+- UI 디자인(tailwind)✅
+- authentication✅
+- authorize✅
+- product 페이지✅
+- community 페이지✅
 - profile 페이지
 - live 페이지
+- chat 페이지
+- prerender, ssr, isr 알아보기
 
 ## 기능 세부사항
 
@@ -143,3 +145,21 @@
     : 나도 궁금해요 토글과 답변 달기 기능
 
 ### 프로파일
+
+- 대시보드
+  : 사적인 정보 제공
+  : 유저 본인만 접근가능
+  : 판매목록, 구매목록, 좋아요 목록
+
+- 프로파일
+  : 공적인 정보만 한정 제공
+  : 타인도 접근가능
+  : 판매목록
+
+- 판매목록
+- 구매목록, 좋아요 목록
+  : 쿼리스트링으로 api 요청
+
+- 프로파일 편집 페이지
+  : 기존 유저 정보를 폼에 입력
+  : 폼에 변경사항이 있을 시에만 업데이트

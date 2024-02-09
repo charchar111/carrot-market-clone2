@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-export const TabBar = function () {
+interface PropsTabBar {
+  user: { ok: boolean; profile?: { id: number } };
+}
+
+export const TabBar = function ({ user }: PropsTabBar) {
   return (
     <nav className="fixed bottom-0 w-full max-w-lg border-t bg-white p-4 py-3 text-gray-600">
       <ul className="flex  flex-wrap justify-around space-x-2">
@@ -100,7 +104,7 @@ export const TabBar = function () {
           </Link>
         </li>
         <li>
-          <Link href="/enter">
+          <Link href={user?.profile?.id ? `/profile/dashboard` : "/enter"}>
             <div className="flex flex-col items-center space-y-1 ">
               <span>
                 <svg

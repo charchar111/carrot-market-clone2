@@ -1,8 +1,12 @@
-import { Post, Product, User } from "@prisma/client";
+import { ProductSelect } from "@/pages";
+import { Post, Product, Record, Review, User } from "@prisma/client";
 import { type } from "os";
+import { KeyedMutator } from "swr";
+import { SWRMutationHook } from "swr/mutation";
 
 export interface IResponse {
   ok: boolean;
+  error?: { message: string };
 }
 
 export interface IResponseFailed {
@@ -11,7 +15,8 @@ export interface IResponseFailed {
 
 export interface IResponseUseUser {
   ok: boolean;
-  flashMessage: string | undefined;
+  profile: { id: number };
+  flashMessage?: string | undefined;
 }
 
 export interface EnterLoginForm1 {
@@ -92,3 +97,52 @@ export interface responseTypePost extends responseType {
   post: PostWithUserAnswers;
   isExistWondering: boolean;
 }
+
+export interface IFormPostAnswer {}
+
+export interface globalProps {
+  user: { user: IResponseUseUser; mutate: KeyedMutator<IResponseUseUser> };
+}
+
+export interface apiProfileIdGet {
+  ok: boolean;
+  profile: {
+    id: number;
+    name: string;
+    avatar: string | null;
+    email: string;
+    phone: string;
+  };
+}
+
+export interface apiProfileDashboardGet extends responseType {
+  profile: {
+    id: number;
+    name: string;
+    avatar: string | null;
+    Products: Product[];
+    Records: Record[];
+  };
+}
+
+interface ReviewWithCreatedBy extends Review {
+  createdBy: {
+    name: string;
+    avatar: string;
+    id: number;
+  };
+}
+
+export interface apiProfileIdReviewsGet extends responseType {
+  reviews: ReviewWithCreatedBy[];
+}
+
+interface RecordWithProduct extends Record {
+  product: ProductSelect;
+}
+
+export interface apiProfileIdRecordGet extends responseType {
+  record: RecordWithProduct[];
+}
+
+export interface apiMeRecordGet extends apiProfileIdRecordGet {}

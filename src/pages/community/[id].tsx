@@ -70,7 +70,7 @@ const CommunityPostDetail: NextPage = () => {
     console.log("effect");
     if (answerData && answerData.ok) reset();
     mutate();
-  }, [reset, answerData]);
+  }, [reset, answerData, mutate]);
 
   const onValid: SubmitHandler<IFormPostAnswer> = function (formData) {
     if (answerLoading) return;

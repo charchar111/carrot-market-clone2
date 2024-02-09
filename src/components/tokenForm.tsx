@@ -26,7 +26,7 @@ export default function TokenForm() {
         ok: true,
       })).then(() => router.push("/"));
     }
-  }, [data, router]);
+  }, [data, router, mutate]);
 
   const {
     register,

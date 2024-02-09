@@ -22,6 +22,7 @@ export default function useMutation<T>(
         })
       ).json();
       if (!response.ok) {
+        console.log("실패", response.error);
         setError(response.error);
       } else {
         setData(response);

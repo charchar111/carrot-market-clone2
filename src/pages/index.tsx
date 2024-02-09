@@ -4,7 +4,7 @@ import { Layout } from "@/components/layouts";
 import ListItem from "@/components/list-item";
 import useMutation from "@/libs/client/useMutation";
 import useUser from "@/libs/client/useUser";
-import { IResponse } from "@/libs/types";
+import { IResponse, globalProps } from "@/libs/types";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -24,32 +24,30 @@ interface IResponseProducts extends IResponse {
   products: ProductSelect[] | [];
 }
 
-const Home: NextPage = () => {
-  // const router = useRouter();
-
-  const { userData, mutate } = useUser();
+const Home: NextPage<globalProps> = ({ user: { user, mutate } }) => {
   const {
     data: productData,
     isLoading: productIsLoading,
     error: productError,
   } = useSWR<IResponseProducts>("/api/products");
-  console.log("swr", productData, productIsLoading, productError);
+
+  // console.log("swr", productData, productIsLoading, productError);
 
   useEffect(() => {
-    if (userData?.flashMessage)
+    if (user?.flashMessage)
       setTimeout(() => {
         mutate((data: any) => ({ ...data, flashMessage: undefined }), {
           revalidate: false,
         });
       }, 2500);
-  }, [userData]);
+  }, [user, mutate]);
 
   return (
-    <Layout title="홈" hasTabBar>
-      {!userData || !userData.ok ? null : (
+    <Layout title="홈" hasTabBar user={user}>
+      {!user || !user.ok ? null : (
         <>
-          {!userData?.flashMessage ? null : (
-            <FlashMessage flashMessage={userData?.flashMessage} />
+          {!user?.flashMessage ? null : (
+            <FlashMessage flashMessage={user?.flashMessage} />
           )}
 
           <div>
