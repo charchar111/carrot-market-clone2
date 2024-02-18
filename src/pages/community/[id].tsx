@@ -1,6 +1,6 @@
 import ButtonDefault from "@/components/button";
 import { Layout } from "@/components/layouts";
-import ListItemCommunityAnswer from "@/components/list-item-community-answer";
+import ListItemCommunityAnswer from "@/components/ListItem/list-item-community-answer";
 import Textarea from "@/components/textarea";
 import useMutation from "@/libs/client/useMutation";
 import { IFormPostAnswer, responseTypePost } from "@/libs/types";

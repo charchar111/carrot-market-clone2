@@ -4,7 +4,8 @@ import InputFile from "@/components/inputFile";
 import { Layout } from "@/components/layouts";
 import Textarea from "@/components/textarea";
 import useMutation from "@/libs/client/useMutation";
-import { IResponse } from "@/libs/types";
+import { IResponse, globalProps } from "@/libs/types";
+import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
@@ -18,7 +19,7 @@ interface IFormProduct {
   longitude?: number;
 }
 
-export default function UploadDetail() {
+const UploadDetail: NextPage<globalProps> = ({ user: { user, mutate } }) => {
   const router = useRouter();
   const {
     register,
@@ -46,7 +47,7 @@ export default function UploadDetail() {
   }, [dataProduct, router]);
 
   return (
-    <Layout canGoBack>
+    <Layout canGoBack user={user}>
       <div className="px-4 py-16">
         <form
           className="flex flex-col"
@@ -111,4 +112,5 @@ export default function UploadDetail() {
       </div>
     </Layout>
   );
-}
+};
+export default UploadDetail;

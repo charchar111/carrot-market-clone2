@@ -1,7 +1,7 @@
 import FlashMessage from "@/components/flashMessage";
 import FloatingButtonLink from "@/components/floating-button-link";
 import { Layout } from "@/components/layouts";
-import ListItemCommunity from "@/components/list-item-community";
+import ListItemCommunity from "@/components/ListItem/list-item-community";
 import useGeolocation from "@/libs/client/useGeolocation";
 import useUser from "@/libs/client/useUser";
 import { responseType, responseTypePosts } from "@/libs/types";

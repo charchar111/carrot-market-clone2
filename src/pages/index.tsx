@@ -1,9 +1,11 @@
 import FlashMessage from "@/components/flashMessage";
 import FloatingButtonLink from "@/components/floating-button-link";
 import { Layout } from "@/components/layouts";
-import ListItem from "@/components/list-item";
+import ListItem from "@/components/ListItem/list-item";
+import Pagination from "@/components/pagination";
 import useMutation from "@/libs/client/useMutation";
 import useUser from "@/libs/client/useUser";
+import { ITEM_PER_PAGE } from "@/libs/constant";
 import { IResponse, globalProps } from "@/libs/types";
 import type { NextPage } from "next";
 import Link from "next/link";
@@ -22,14 +24,19 @@ export interface ProductSelect {
 
 interface IResponseProducts extends IResponse {
   products: ProductSelect[] | [];
+  count: number;
 }
 
 const Home: NextPage<globalProps> = ({ user: { user, mutate } }) => {
+  const router = useRouter();
+
   const {
     data: productData,
     isLoading: productIsLoading,
     error: productError,
-  } = useSWR<IResponseProducts>("/api/products");
+  } = useSWR<IResponseProducts>(
+    !router.query.page ? null : `/api/products?page=${router.query.page}`,
+  );
 
   // console.log("swr", productData, productIsLoading, productError);
 
@@ -73,6 +80,16 @@ const Home: NextPage<globalProps> = ({ user: { user, mutate } }) => {
             </svg>
           </FloatingButtonLink>
         </>
+      )}
+      {!productData?.count ? null : (
+        <Pagination
+          pageButtonCount={10}
+          totalCountData={productData?.count}
+          // totalCountData={250}
+          query="page"
+          pathname="/"
+          itemPerPage={ITEM_PER_PAGE}
+        />
       )}
     </Layout>
   );

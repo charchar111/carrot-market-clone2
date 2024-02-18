@@ -1,5 +1,13 @@
 import { ProductSelect } from "@/pages";
-import { Post, Product, Record, Review, User } from "@prisma/client";
+import {
+  Message,
+  Post,
+  Product,
+  Record,
+  Review,
+  Stream,
+  User,
+} from "@prisma/client";
 import { type } from "os";
 import { KeyedMutator } from "swr";
 import { SWRMutationHook } from "swr/mutation";
@@ -146,3 +154,15 @@ export interface apiProfileIdRecordGet extends responseType {
 }
 
 export interface apiMeRecordGet extends apiProfileIdRecordGet {}
+
+export interface IResponseLivePost extends IResponse {
+  stream: { id: number };
+}
+
+export interface StreamWithMessage extends Stream {
+  Messages: Message[];
+}
+
+export interface IResponseWithStreamDetail extends IResponse {
+  live: StreamWithMessage;
+}

@@ -20,7 +20,7 @@ export const Layout = function ({
   user,
 }: LayoutProps) {
   return (
-    <div className="outter-layout min-h-screen bg-gray-100">
+    <div className="outter-layout  min-h-screen bg-gray-100">
       <div className="layout mx-auto min-h-screen  max-w-lg bg-white">
         <Header title={title} canGoBack={canGoBack} />
         <div className={makeClassName("pt-14", hasTabBar ? "pb-16" : "")}>

@@ -1,3 +1,4 @@
+import { ITEM_PER_PAGE } from "@/libs/constant";
 import client from "@/libs/server/client";
 import withAPIhandler from "@/libs/server/withAPIhandler";
 import withApiSession from "@/libs/server/withApiSession";
@@ -9,6 +10,17 @@ async function handler(
   res: NextApiResponse<responseType>,
 ) {
   if (req.method == "GET") {
+    const page = String(req.query.page).trim();
+
+    if (
+      page === "" ||
+      page === "undefined" ||
+      page === "null" ||
+      isNaN(+page) ||
+      +page <= 0
+    )
+      return res.status(400).json({ ok: false });
+    const count = await client.product.count({});
     const products = await client.product.findMany({
       select: {
         id: true,
@@ -18,11 +30,12 @@ async function handler(
         image: true,
         _count: { select: { Records: { where: { kind: "FAVORITE" } } } },
       },
-      orderBy: { createdAt: "desc" },
-      // take: 5
+      orderBy: { id: "desc" },
+      take: 25,
+      skip: ITEM_PER_PAGE * (+page - 1),
     });
 
-    return res.status(200).json({ ok: true, products });
+    return res.status(200).json({ ok: true, products, count });
   }
 
   if (req.method == "POST") {

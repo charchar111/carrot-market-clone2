@@ -1,28 +1,38 @@
+import ListItemLives from "@/components/ListItem/list-item-lives";
 import FloatingButtonLink from "@/components/floating-button-link";
 import { Layout } from "@/components/layouts";
+import { IResponse, globalProps } from "@/libs/types";
+import { NextPage } from "next";
 import Link from "next/link";
+import useSWR from "swr";
 
-export default function Lives() {
+export interface LiveSelected {
+  id: number;
+  name: string;
+  createdAt: Date;
+  price: number;
+  user: { name: string };
+}
+
+interface IResponseLives extends IResponse {
+  live: LiveSelected[] | [];
+}
+
+const Lives: NextPage<globalProps> = function ({ user: { user, mutate } }) {
+  const {
+    data: liveData,
+    isLoading: liveIsLoading,
+    error: liveError,
+  } = useSWR<IResponseLives>("/api/lives");
+
+  console.log(liveData);
+
   return (
-    <Layout title="스트리밍" hasTabBar>
+    <Layout title="스트리밍" hasTabBar user={user}>
       <div id="component-lives">
         <section className="live-list space-y-6 ">
-          {Array.from(Array(10)).map((_, i) => (
-            <div
-              key={i}
-              className="list__element  border-b-2    last:border-b-0 "
-            >
-              <Link href={`/lives/${i}`}>
-                <div className="mt-5 px-4 pb-10">
-                  <div className="video mb-2 aspect-video rounded-lg bg-gray-400"></div>
-                  <div className="info">
-                    <h2 className="text-lg font-semibold text-gray-800">
-                      We want happy
-                    </h2>
-                  </div>
-                </div>
-              </Link>
-            </div>
+          {liveData?.live.map((element, i) => (
+            <ListItemLives element={element} key={i} />
           ))}
         </section>
 
@@ -45,4 +55,6 @@ export default function Lives() {
       </div>
     </Layout>
   );
-}
+};
+
+export default Lives;

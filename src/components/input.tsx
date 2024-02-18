@@ -31,9 +31,9 @@ export default function Input({
             className=" w-full  rounded-md border-gray-400 pr-10 shadow-lg "
             {...rest}
           />
-          <div className="absolute right-1 rounded-full  bg-orange-400  px-2 pb-1 text-white">
+          <button className="absolute right-1 rounded-full  bg-orange-400  px-2 pb-1 text-white">
             <span>&rarr;</span>
-          </div>
+          </button>
         </>
       );
       break;
@@ -65,7 +65,7 @@ export default function Input({
       break;
     case "phone":
       inputPhone = (
-        <div className="mb-5 flex w-full ">
+        <button className="mb-5 flex w-full ">
           <span className="rounded-l-sm border border-r-0   bg-gray-100  p-2 text-gray-500 ">
             +82
           </span>
@@ -76,13 +76,13 @@ export default function Input({
             className="w-full rounded-sm rounded-l-none border-gray-200 shadow-sm placeholder:text-gray-300 focus:border-orange-400 focus:ring-orange-400"
             {...rest}
           />
-        </div>
+        </button>
       );
       break;
 
     case "price":
       inputPrice = (
-        <div className="relative mb-5 flex items-center text-gray-300">
+        <button className="relative mb-5 flex items-center text-gray-300">
           <span className="pointer-events-none absolute left-2">$</span>
 
           <input
@@ -97,7 +97,7 @@ export default function Input({
             {...rest}
           />
           <span className=" pointer-events-none absolute right-5">USD</span>
-        </div>
+        </button>
       );
       break;
   }

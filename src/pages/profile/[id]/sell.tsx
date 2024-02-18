@@ -1,6 +1,6 @@
 import FloatingButtonLink from "@/components/floating-button-link";
 import { Layout } from "@/components/layouts";
-import ListItem from "@/components/list-item";
+import ListItem from "@/components/ListItem/list-item";
 import { apiProfileIdRecordGet, globalProps } from "@/libs/types";
 import { NextPage } from "next";
 import Link from "next/link";
