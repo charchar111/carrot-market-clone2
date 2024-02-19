@@ -4,19 +4,21 @@ import { Layout } from "@/components/layouts";
 import ListItemCommunity from "@/components/ListItem/list-item-community";
 import useGeolocation from "@/libs/client/useGeolocation";
 import useUser from "@/libs/client/useUser";
-import { responseType, responseTypePosts } from "@/libs/types";
+import { globalProps, responseType, responseTypePosts } from "@/libs/types";
+import { NextPage } from "next";
 import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
-export default function Community() {
+const Community: NextPage<globalProps> = function ({
+  user: { user: userData, mutate: userMutate },
+}) {
   const [state, setState] = useState("20");
   useEffect(() => {
     setTimeout(() => setState("40"), 2000);
   }, []);
 
-  const { userData, isLoading: userIsLoading, mutate: userMutate } = useUser();
   const {
     latitude,
     longitude,
@@ -44,7 +46,7 @@ export default function Community() {
   console.log(data, isLoading, error);
   const successData = data?.ok ? data.posts : undefined;
   return (
-    <Layout title="동네 생활" hasTabBar>
+    <Layout title="동네 생활" hasTabBar user={userData}>
       {!userData || !userData.ok ? null : (
         <>
           {!userData?.flashMessage ? null : (
@@ -75,4 +77,5 @@ export default function Community() {
       )}
     </Layout>
   );
-}
+};
+export default Community;

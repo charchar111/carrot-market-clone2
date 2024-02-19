@@ -12,7 +12,7 @@ interface IFormLiveChat {
   content: string;
 }
 
-const livesDetail: NextPage<globalProps> = function ({ user: { user } }) {
+const LiveDetail: NextPage<globalProps> = function ({ user: { user } }) {
   const router = useRouter();
   const [initialChatScroll, setInitialChatScroll] = useState(false);
   const {
@@ -147,4 +147,4 @@ const livesDetail: NextPage<globalProps> = function ({ user: { user } }) {
   );
 };
 
-export default livesDetail;
+export default LiveDetail;

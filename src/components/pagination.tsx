@@ -44,7 +44,7 @@ export default function Pagination({
       }
       setIsRenderState(true);
     }
-  }, [router, setPageState, setIsRenderState]);
+  }, [router.pathname, router.query, setPageState, setIsRenderState]);
   // pageState를 query.page로 세팅
 
   // console.log("isRenderState", isRenderState, pageDirectionState);

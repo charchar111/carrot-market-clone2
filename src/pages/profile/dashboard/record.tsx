@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-const profileRecord: NextPage<globalProps> = ({ user: { user, mutate } }) => {
+const ProfileRecord: NextPage<globalProps> = ({ user: { user, mutate } }) => {
   const router = useRouter();
   const { data: recordData } = useSWR<apiMeRecordGet>(
     !router.query.kind ? null : `/api/users/me?kind=${router.query.kind}`,
@@ -44,4 +44,4 @@ const profileRecord: NextPage<globalProps> = ({ user: { user, mutate } }) => {
   );
 };
 
-export default profileRecord;
+export default ProfileRecord;

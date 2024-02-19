@@ -12,13 +12,7 @@ async function handler(
   if (req.method == "GET") {
     const page = String(req.query.page).trim();
 
-    if (
-      page === "" ||
-      page === "undefined" ||
-      page === "null" ||
-      isNaN(+page) ||
-      +page <= 0
-    )
+    if (page === "" || isNaN(+page) || +page <= 0 || Number(page) % 1 !== 0)
       return res.status(400).json({ ok: false });
     const count = await client.product.count({});
     const products = await client.product.findMany({

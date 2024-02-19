@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-const profileSell: NextPage<globalProps> = ({ user: { user, mutate } }) => {
+const ProfileSell: NextPage<globalProps> = ({ user: { user, mutate } }) => {
   const router = useRouter();
   const { data: sellData } = useSWR<apiProfileIdRecordGet>(
     !router.query.id
@@ -43,4 +43,4 @@ const profileSell: NextPage<globalProps> = ({ user: { user, mutate } }) => {
     </Layout>
   );
 };
-export default profileSell;
+export default ProfileSell;

@@ -3,6 +3,7 @@ import FloatingButtonLink from "@/components/floating-button-link";
 import { Layout } from "@/components/layouts";
 import ListItem from "@/components/ListItem/list-item";
 import Pagination from "@/components/pagination";
+import useIncludeQuery from "@/libs/client/useIncloudQuery";
 import useMutation from "@/libs/client/useMutation";
 import useUser from "@/libs/client/useUser";
 import { ITEM_PER_PAGE } from "@/libs/constant";
@@ -29,6 +30,8 @@ interface IResponseProducts extends IResponse {
 
 const Home: NextPage<globalProps> = ({ user: { user, mutate } }) => {
   const router = useRouter();
+
+  useIncludeQuery({ query: "page", redirectValue: "1" });
 
   const {
     data: productData,

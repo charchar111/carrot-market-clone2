@@ -4,7 +4,7 @@ import { Layout } from "@/components/layouts";
 import Textarea from "@/components/textarea";
 import useGeolocation from "@/libs/client/useGeolocation";
 import useMutation from "@/libs/client/useMutation";
-import { IResponse } from "@/libs/types";
+import { IResponse, globalProps } from "@/libs/types";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -17,7 +17,7 @@ interface IFormPost {
   longitude?: number;
 }
 
-const Write: NextPage = () => {
+const Write: NextPage<globalProps> = ({ user: { user, mutate } }) => {
   const {
     latitude,
     longitude,
@@ -56,7 +56,7 @@ const Write: NextPage = () => {
   };
 
   return (
-    <Layout canGoBack>
+    <Layout canGoBack user={user}>
       <div className="px-3 py-10">
         <form
           className="flex flex-col "

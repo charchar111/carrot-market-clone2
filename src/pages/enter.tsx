@@ -6,9 +6,10 @@ import { makeClassName } from "@/libs/client/utils";
 import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
 import useMutation from "@/libs/client/useMutation";
 import TokenForm from "@/components/tokenForm";
-import { EnterLoginForm1, responseType } from "@/libs/types";
+import { EnterLoginForm1, globalProps, responseType } from "@/libs/types";
+import { NextPage } from "next";
 
-export default function Enter() {
+const Enter: NextPage<globalProps> = function ({ user: { user, mutate } }) {
   const [mutation, { data, error, isLoading }] = useMutation<responseType>(
     "/api/users/confirm-address",
   );
@@ -43,7 +44,7 @@ export default function Enter() {
   };
 
   return (
-    <Layout title="로그인" hasTabBar canGoBack>
+    <Layout title="로그인" hasTabBar canGoBack user={user}>
       <div className="mx-auto  min-w-[250px] space-y-5 px-3  py-10 text-center   ">
         <h3 className="text-2xl font-semibold">Enter to Carrot</h3>
         <div className=" relative flex flex-col items-center space-y-5 text-center">
@@ -183,4 +184,6 @@ export default function Enter() {
       </div>
     </Layout>
   );
-}
+};
+
+export default Enter;

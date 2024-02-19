@@ -3,14 +3,14 @@ import { Layout } from "@/components/layouts";
 import ListItemCommunityAnswer from "@/components/ListItem/list-item-community-answer";
 import Textarea from "@/components/textarea";
 import useMutation from "@/libs/client/useMutation";
-import { IFormPostAnswer, responseTypePost } from "@/libs/types";
+import { globalProps, IFormPostAnswer, responseTypePost } from "@/libs/types";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
 import useSWR from "swr";
 
-const CommunityPostDetail: NextPage = () => {
+const CommunityPostDetail: NextPage<globalProps> = ({ user: { user } }) => {
   const router = useRouter();
 
   const { data, isLoading, error, mutate } = useSWR<responseTypePost>(
@@ -82,7 +82,7 @@ const CommunityPostDetail: NextPage = () => {
 
   const sucessData = data?.ok ? data : undefined;
   return (
-    <Layout canGoBack>
+    <Layout canGoBack user={user}>
       <div>
         <span className="my-3 ml-4 inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
           동네질문

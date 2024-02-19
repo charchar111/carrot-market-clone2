@@ -1,9 +1,13 @@
 import Input from "@/components/input";
 import { Layout } from "@/components/layouts";
+import { globalProps } from "@/libs/types";
+import { NextPage } from "next";
 
-export default function chatDetail() {
+const ChatDetail: NextPage<globalProps> = function ({
+  user: { user, mutate },
+}) {
   return (
-    <Layout canGoBack>
+    <Layout canGoBack user={user}>
       <div id="chat-detail" className="space-y-5 px-4 ">
         {[...Array(14)].map((_, i) => {
           if (i % 3 === 0)
@@ -52,4 +56,5 @@ export default function chatDetail() {
       </div>
     </Layout>
   );
-}
+};
+export default ChatDetail;

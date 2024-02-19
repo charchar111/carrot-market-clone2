@@ -82,7 +82,7 @@ const ProfileEdit: NextPage<globalProps> = ({ user: { user, mutate } }) => {
 
       setValue("phone", userData.profile.phone);
     }
-  }, [userData]);
+  }, [userData, setValue]);
 
   return (
     <Layout canGoBack user={user}>

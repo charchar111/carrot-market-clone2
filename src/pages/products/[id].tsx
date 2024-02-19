@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-export default function ItemDetail() {
+export default function ItemDetail({ user: { user } }: any) {
   const router = useRouter();
   const [mutateFavorite, { data: dataFavorite, isLoading: isLoadingFavorite }] =
     useMutation(`/api/products/${router.query.id}/favorite`);
@@ -47,7 +47,7 @@ export default function ItemDetail() {
   console.log("data", data, isLoadingFavorite);
   const successData = data?.ok ? data : null;
   return (
-    <Layout canGoBack>
+    <Layout canGoBack user={user}>
       <div id="item-detail">
         <div className="detail__main p-3">
           <div className="mb-5 h-44 w-full rounded-lg bg-gray-400" />

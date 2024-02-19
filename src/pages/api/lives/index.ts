@@ -1,3 +1,4 @@
+import { ITEM_PER_PAGE } from "@/libs/constant";
 import client from "@/libs/server/client";
 import withAPIhandler from "@/libs/server/withAPIhandler";
 import withApiSession from "@/libs/server/withApiSession";
@@ -9,6 +10,16 @@ async function handler(
   res: NextApiResponse<responseType>,
 ) {
   if (req.method == "GET") {
+    const page = String(req.query.page).trim();
+    if (page === "" || isNaN(+page) || +page <= 0 || Number(page) % 1 !== 0)
+      return res.status(400).json({ ok: false });
+
+    console.log("page", page);
+
+    // await new Promise((res) => {
+    //   setTimeout(res, 2000);
+    // });
+
     const live = await client.stream.findMany({
       where: {},
       select: {
@@ -19,7 +30,8 @@ async function handler(
         user: { select: { name: true } },
       },
       orderBy: { createdAt: "desc" },
-      // take: 5
+      take: ITEM_PER_PAGE,
+      skip: (+page - 1) * ITEM_PER_PAGE,
     });
 
     return res.status(200).json({ ok: true, live });
